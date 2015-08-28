@@ -77,7 +77,18 @@
         <div class="row">
           <div class="col-md-4">
             <!-- Task List -->
-            <div ng-controller='TaskListController as listCtrl' class="task-list">
+            <table class="table" ng-controller='TaskListController as listCtrl'>
+              <tr ng-repeat="task in tasks" ng-click="selectTask(task.taskId)" ng-class="{success: isSelected(task.taskId)}">
+                <td>{{ task.taskName }}</td>
+                <td align="right">{{ task.taskTimeLeft }} secs</td>
+                <td align="right">
+                  <a role="button" href="#">
+                    <span ng-click="removeTask(task.taskId)" class="glyphicon glyphicon-remove" style="color: red;" aria-hidden="true"></span>
+                  </a>
+                </td>
+              </tr>
+            </table>
+            <!-- <div ng-controller='TaskListController as listCtrl'>
               <ul class="list-group panel panel-default">
                 <li ng-repeat="task in tasks" ng-click="selectTask(task.taskId)" class="list-group-item" ng-class="{active: isSelected(task.taskId)}">
                   {{ task.taskName }} {{ task.taskDuration }} secs
@@ -85,8 +96,8 @@
                     <span ng-click="removeTask(task.taskId)" class="glyphicon glyphicon-remove" style="color: red;" aria-hidden="true"></span>
                   </a>
                 </li>
-              </ul>  
-            </div>
+              </ul>
+            </div> -->
             <!-- Task Input -->
             <form ng-controller='TaskInputController' class="form-inline task-input">
               <div class="form-group">

@@ -8,6 +8,23 @@ li {
           border-radius: 0 !important;
 }
 
+tr {
+  width: 100%;
+  display: inline-table;
+}
+
+table {
+  height: 85%; 
+}
+
+tbody {
+  overflow-y: auto;
+  height: 80%;
+  width: 100%;
+  position: absolute;
+  border-bottom: 1px solid black;
+}
+
 .ng-dirty.ng-invalid {
   border-color: red;
 }
@@ -48,6 +65,7 @@ li {
 }
 
 .task-list {
+  overflow: scroll;
   height: 90%;
 }
 
