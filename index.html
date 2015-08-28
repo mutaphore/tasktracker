@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html ng-app="taskTrackerApp">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  	<title>Task Tracker</title>
+    <!-- styles -->
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css">
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Angular -->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.1/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.1/angular-route.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.1/angular-sanitize.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.1/angular-animate.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.1/angular-cookies.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+    <!-- main app -->
+    <script src="js/app.js"></script>
+    <!-- controllers -->
+    <script src="js/controllers/TaskInputController.js"></script>
+    <script src="js/controllers/TaskListController.js"></script>
+    <script src="js/controllers/TaskViewController.js"></script>
+    <script src="js/controllers/TaskRunController.js"></script>
+    <script src="js/controllers/CurrentTimeController.js"></script>
+    <!-- services -->
+    <script src="js/services/taskListManager.js"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top" style="height: 100%;">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Task Tracker (v1.0)</a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li ng-class="{active: link === 1}">
+              <a href="#" ng-click="link = 1">Link</a>
+            </li>
+            <li ng-class="{active: link === 2}">
+              <a href="#" ng-click="link = 2">Link</a>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="#">Separated link</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="#">One more separated link</a></li>
+              </ul>
+            </li>
+          </ul>
+          <form class="navbar-form navbar-right" role="search">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Comments">
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+          </form>
+        </div><!-- /.navbar-collapse -->
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="col-md-4">
+              <!-- Task List -->
+              <div ng-controller='TaskListController as listCtrl'>
+                <ul id="task-list" class="list-group panel panel-default">
+                  <li ng-repeat="task in tasks" ng-click="selectTask(task.taskId)" class="list-group-item" ng-class="{active: isSelected(task.taskId)}">
+                    {{ task.taskName }} {{ task.taskDuration }} secs
+                    <a role="button" href="#">
+                      <span ng-click="removeTask(task.taskId)" class="glyphicon glyphicon-remove" style="color: red;" aria-hidden="true"></span>
+                    </a>
+                  </li>
+                </ul>  
+              </div>
+              <!-- Task Input -->
+              <form ng-controller='TaskInputController'>
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="Task name" ng-model="taskName">
+                </div>
+                <div class="form-group">
+                  <input type="number" min="0" class="form-control" placeholder="Task duration" ng-model="taskDuration">
+                </div>
+                <div class="form-group">
+                  <a ng-click="addTask(taskName, taskDuration)" role="button" class="btn btn-default">Add</a>
+                </div>
+              </form>
+            </div>
+            <!-- Task View -->
+            <div class="col-md-7">
+              <div class="jumbotron">
+                <div ng-controller='CurrentTimeController as curTimeCtrl'>
+                  <h3><span class="glyphicon glyphicon-time"></span> {{curTime | date:'h:mm a'}}</h3>
+                </div>
+                <div id="task-view" ng-controller='TaskViewController as viewCtrl' class="container text-center">
+                  <!-- <h2>{{ curTask.taskName }}</h2>
+                  <h1>{{ curTask.taskTimeLeft }}</h1><br><br><br><br> -->
+                  <h2>{{ viewCtrl.getCurTask().taskName }}</h2>
+                  <h1>{{ viewCtrl.getCurTask().taskTimeLeft }}</h1><br><br><br><br>
+                  <div ng-show="viewCtrl.getCurTask().taskName" class="progress">
+                    <div class="progress-bar progress-bar-striped active" role="progressbar" 
+                      aria-valuenow="{{ viewCtrl.getPercentDone() }}" 
+                      aria-valuemin="0" aria-valuemax="100" style="width: {{ viewCtrl.getPercentDone() }}%;">
+                    </div>
+                  </div>
+                </div> 
+              </div>
+            </div>
+            <!-- Task Run Controls -->
+            <div class="col-md-1">
+              <div ng-controller='TaskRunController as runCtrl'>
+                <a ng-show="runCtrl.currentTaskSelected()" ng-click="runCtrl.runCurTask()" role="button" class="btn btn-default">
+                  <span class="glyphicon glyphicon-hourglass"></span> Start
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </body>
+</html>
