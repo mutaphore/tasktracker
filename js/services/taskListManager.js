@@ -1,4 +1,4 @@
-taskTrackerApp.factory("taskListManager", "$interval", function($interval) {
+taskTrackerApp.factory("taskListManager", ["$interval", function($interval) {
   var idCounter = 0;
   var stop;
   var manager = {
@@ -25,21 +25,19 @@ taskTrackerApp.factory("taskListManager", "$interval", function($interval) {
         // Reset curTask if taskList is empty
         if (manager.taskList.length === 0) {
           manager.curTask = {};
-        } else {
+        } else if (manager.curTask.taskId === taskId) {
+          // If removed current task, default to the first task
           manager.setCurTask(manager.taskList[0].taskId);
-        }
-        return;
+        } 
       }
     }
   }
 
   manager.setCurTask = function(taskId) {
-    for (var i = 0; i < manager.taskList.length; i++) {
-      if (manager.taskList[i].taskId === taskId) {
-        manager.curTask = manager.taskList[i];
-        return;
-      }
-    } 
+    var found = $.grep(manager.taskList, function(obj) { return obj.taskId === taskId; });
+    if (found.length === 1) {
+      manager.curTask = found[0];
+    }
   };
 
   manager.runTask = function(taskId) {
@@ -69,4 +67,4 @@ taskTrackerApp.factory("taskListManager", "$interval", function($interval) {
   };
 
   return manager;
-});
+}]);
