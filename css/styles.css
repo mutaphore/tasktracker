@@ -1,6 +1,12 @@
 html, body {
 	height: 100%;
 }
+  
+li {
+  -webkit-border-radius: 0 !important;
+     -moz-border-radius: 0 !important;
+          border-radius: 0 !important;
+}
 
 .ng-dirty.ng-invalid {
   border-color: red;
@@ -16,6 +22,53 @@ html, body {
   min-height: 100%;
   height:auto !important; 
   height: 100%; 
+}
+
+.container-fluid {
+  display: table;
+}
+
+.row {
+  height: 100%;
+  display: table-row;
+}
+
+.col-md-4 {
+  padding: 0;
+  display: table-cell;
+  width: 30%;
+  height: 100%;
+}
+
+.col-md-8 {
+  padding: 0;
+  display: table-cell;
+  width: 70%;
+  height: 100%;
+}
+
+.task-list {
+  height: 90%;
+}
+
+.task-input {
+  height: 10%;
+}
+
+.jumbotron.task-view{
+  height: 80%;
+  margin: 0;
+  -webkit-border-radius: 0 !important;
+     -moz-border-radius: 0 !important;
+          border-radius: 0 !important;
+}
+
+.jumbotron.task-run{
+  height: 20%;
+  margin: 0;
+  -webkit-border-radius: 0 !important;
+     -moz-border-radius: 0 !important;
+          border-radius: 0 !important;
 }
 
 .jumbotron.vertical-center {
@@ -62,14 +115,4 @@ html, body {
             -ms-flex-pack : center;
   -webkit-justify-content : center;
           justify-content : center;
-}
-
-#task-view {
-  height: 100%;
-}
-
-#task-list {
-    height: 300px;
-    max-height: 300px;
-    overflow-x: hidden;
 }
