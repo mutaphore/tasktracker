@@ -65,7 +65,7 @@ html, body {
 }
 
 #task-view {
-  height: 400px;  
+  height: 100%;
 }
 
 #task-list {
