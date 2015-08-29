@@ -16,7 +16,7 @@ taskTrackerApp.factory("taskListManager", ["$interval", function($interval) {
     };
     manager.taskList.push(newTask);
     idCounter++;
-  }
+  };
 
   manager.removeTask = function(taskId) {
     for (var i = 0; i < manager.taskList.length; i++) {
@@ -31,6 +31,13 @@ taskTrackerApp.factory("taskListManager", ["$interval", function($interval) {
         } 
       }
     }
+  };
+
+  manager.clearTasks = function() {
+    while (manager.taskList.length) {
+      manager.taskList.pop();
+    }
+    manager.curTask = {};  
   }
 
   manager.setCurTask = function(taskId) {

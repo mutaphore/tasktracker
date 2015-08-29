@@ -35,23 +35,25 @@
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
             <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
+            <!-- <span class="icon-bar"></span>
+            <span class="icon-bar"></span> -->
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Task Tracker (v1.0)</a>
+          <span class="navbar-brand">Task Tracker (v1.0)</span>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-            <li ng-class="{active: link === 1}">
+            <!-- <li ng-class="{active: link === 1}">
               <a href="#" ng-click="link = 1">Link</a>
             </li>
             <li ng-class="{active: link === 2}">
               <a href="#" ng-click="link = 2">Link</a>
-            </li>
+            </li> -->
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                Settings <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+              </a>
               <ul class="dropdown-menu">
                 <li><a href="#">Action</a></li>
                 <li><a href="#">Another action</a></li>
@@ -93,20 +95,45 @@
             <form>
               <div class="form-group">
                 <div class="input-group col-md-12">
-                  <input type="text" class="form-control input-lg" maxlength="40" placeholder="Task name" ng-model="taskName" required><br>
+                  <input type="text" class="form-control" maxlength="40" placeholder="Task name" ng-model="taskName" required><br>
                 </div>
               </div>
             </form>
-            <form class="form-inline">
-              <div class="form-group col-md-4">
-                <input style="width: 100%" type="number" min="0" max="60" class="form-control input-lg" placeholder="Minutes" ng-model="taskDurationMin" required>
+
+            <!-- <div class="input-group">
+              <input type="number" min="0" max="60" class="form-control" placeholder="Seconds" ng-model="taskDurationSec" required>
+              <input type="number" min="0" max="60" class="form-control" placeholder="Seconds" ng-model="taskDurationSec" required>
+              <div class="input-group-btn">
+                <a ng-click="addTask()" role="button" class="btn btn-default" style="border-radius: 0 !important;">Add</a>
               </div>
-              <div class="form-group col-md-4">
-                <input style="width: 100%;" type="number" min="0" max="60" class="form-control input-lg" placeholder="Seconds" ng-model="taskDurationSec" required>
+              <div class="input-group-btn">
+                <a ng-click="clearTasks()" role="button" class="btn btn-default" style="border-radius: 0 !important;">Clear</a>
               </div>
-              <a ng-click="addTask()" role="button" class="btn btn-default btn-lg">Add</a>
-              <a ng-click="clearTasks()" role="button" class="btn btn-default btn-lg">Clear</a>
-            </form>
+            </div> -->
+
+            <div class="input-group">
+              <!-- <span class="input-group-addon" id="basic-addon1">Time</span> -->
+              <!-- <input type="number" min="0" max="60" class="form-control" placeholder="Minutes" ng-model="taskDurationMin" required> -->
+              <input type="number" min="0" max="60" class="form-control" placeholder="Seconds" ng-model="taskDurationSec" required>
+              <div class="btn-group btn-group-justified">
+                <a ng-click="addTask()" role="button" class="btn btn-default" style="border-radius: 0 !important;">Add</a>
+                <a ng-click="clearTasks()" role="button" class="btn btn-default" style="border-radius: 0 !important;">Clear</a>
+              </div>
+            </div>
+
+
+            <!-- <form class="form-inline">
+              <div class="form-group col-md-6">
+                <input style="width: 100%" type="number" min="0" max="60" class="form-control" placeholder="Minutes" ng-model="taskDurationMin">
+              </div>
+              <div class="form-group col-md-6">
+                <input style="width: 100%;" type="number" min="0" max="60" class="form-control" placeholder="Seconds" ng-model="taskDurationSec" required>
+              </div>
+              <div class="btn-group btn-group-justified">
+                <a ng-click="addTask()" role="button" class="btn btn-default" style="border-radius: 0 !important;">Add</a>
+                <a ng-click="clearTasks()" role="button" class="btn btn-default" style="border-radius: 0 !important;">Clear</a>
+              </div>
+            </form> -->
           </div>
         </div>
         <!-- Task View -->
