@@ -73,73 +73,73 @@
       </nav>
     </header>
 
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-md-4">
-            <!-- Task List -->
-            <table class="table" ng-controller='TaskListController as listCtrl'>
-              <tr ng-repeat="task in tasks" ng-click="selectTask(task.taskId)" ng-class="{success: isSelected(task.taskId)}">
-                <td>{{ task.taskName }}</td>
-                <td align="right">{{ task.taskTimeLeft }} secs</td>
-                <td align="right">
-                  <a role="button" href="#">
-                    <span ng-click="removeTask(task.taskId)" class="glyphicon glyphicon-remove" style="color: red;" aria-hidden="true"></span>
-                  </a>
-                </td>
-              </tr>
-            </table>
-            <!-- <div ng-controller='TaskListController as listCtrl'>
-              <ul class="list-group panel panel-default">
-                <li ng-repeat="task in tasks" ng-click="selectTask(task.taskId)" class="list-group-item" ng-class="{active: isSelected(task.taskId)}">
-                  {{ task.taskName }} {{ task.taskDuration }} secs
-                  <a role="button" href="#">
-                    <span ng-click="removeTask(task.taskId)" class="glyphicon glyphicon-remove" style="color: red;" aria-hidden="true"></span>
-                  </a>
-                </li>
-              </ul>
-            </div> -->
-            <!-- Task Input -->
-            <form ng-controller='TaskInputController' class="form-inline task-input">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-4">
+          <!-- Task List -->
+          <table class="table table-hover" ng-controller='TaskListController as listCtrl'>
+            <tr ng-repeat="task in tasks" ng-click="selectTask(task.taskId)" ng-class="{success: isSelected(task.taskId)}">
+              <td>{{ task.taskName }}</td>
+              <td align="right">{{ task.taskTimeLeft }} secs</td>
+              <td align="right">
+                <a role="button" href="#">
+                  <span ng-click="removeTask(task.taskId)" class="glyphicon glyphicon-remove" style="color: red;" aria-hidden="true"></span>
+                </a>
+              </td>
+            </tr>
+          </table>
+          <!-- Task Input -->
+          <div ng-controller='TaskInputController' class="task-input">
+            <form>
               <div class="form-group">
-                <div class="input-group">
-                  <input type="text" class="form-control" placeholder="Task name" ng-model="taskName" required><br>
-                  <input type="number" min="0" class="form-control" placeholder="Task duration" ng-model="taskDuration" required>
+                <div class="input-group col-md-12">
+                  <input type="text" class="form-control input-lg" maxlength="40" placeholder="Task name" ng-model="taskName" required><br>
                 </div>
-                <a ng-click="addTask(taskName, taskDuration)" role="button" class="btn btn-default">Add</a>
               </div>
             </form>
-          </div>
-          <!-- Task View -->
-          <div class="col-md-8">
-            <div class="jumbotron task-view">
-              <div ng-controller='CurrentTimeController as curTimeCtrl'>
-                <h3><span class="glyphicon glyphicon-time"></span> {{curTime | date:'h:mm a'}}</h3>
+            <form class="form-inline">
+              <div class="form-group col-md-4">
+                <input style="width: 100%" type="number" min="0" max="60" class="form-control input-lg" placeholder="Minutes" ng-model="taskDurationMin" required>
               </div>
-              <div ng-controller='TaskViewController as viewCtrl' class="container text-center">
-                <h2>{{ viewCtrl.getCurTask().taskName }}</h2>
-                <h1>{{ viewCtrl.getCurTask().taskTimeLeft }}</h1><br><br><br><br>
-                <div ng-show="viewCtrl.getCurTask().taskName" class="progress">
-                  <div class="progress-bar progress-bar-striped active" role="progressbar" 
-                    aria-valuenow="{{ viewCtrl.getPercentDone() }}" 
-                    aria-valuemin="0" aria-valuemax="100" style="width: {{ viewCtrl.getPercentDone() }}%;">
-                  </div>
+              <div class="form-group col-md-4">
+                <input style="width: 100%;" type="number" min="0" max="60" class="form-control input-lg" placeholder="Seconds" ng-model="taskDurationSec" required>
+              </div>
+              <a ng-click="addTask()" role="button" class="btn btn-default btn-lg">Add</a>
+              <a ng-click="clearTasks()" role="button" class="btn btn-default btn-lg">Clear</a>
+            </form>
+          </div>
+        </div>
+        <!-- Task View -->
+        <div class="col-md-8">
+          <div class="jumbotron task-view">
+            <div ng-controller='CurrentTimeController as curTimeCtrl'>
+              <h3 align="right"><span class="glyphicon glyphicon-time"></span> {{curTime | date:'h:mm a'}}</h3>
+            </div>
+            <div ng-controller='TaskViewController as viewCtrl' class="container text-center">
+              <h2>{{ viewCtrl.getCurTask().taskName }}</h2>
+              <h1>{{ viewCtrl.getCurTask().taskTimeLeft }}</h1><br><br><br><br><br><br><br><br>
+              <div ng-show="viewCtrl.getCurTask().taskName" class="progress">
+                <div class="progress-bar" ng-class="{'progress-bar-striped active': viewCtrl.isRunning()}" role="progressbar" 
+                  aria-valuenow="{{ viewCtrl.getPercentDone() }}" 
+                  aria-valuemin="0" aria-valuemax="100" style="width: {{ viewCtrl.getPercentDone() }}%;">
                 </div>
-              </div> 
-            </div>
-            <!-- Task Run Controls -->
-            <div class="jumbotron task-run">
-              <div ng-controller='TaskRunController as runCtrl'>
-                  <a ng-show="runCtrl.currentTaskSelected() && !runCtrl.isRunning()" ng-click="runCtrl.runCurTask()" role="button" class="btn btn-default">
-                    <span class="glyphicon glyphicon-hourglass"></span> Start
-                  </a>
-                  <a ng-show="runCtrl.currentTaskSelected() && runCtrl.isRunning()" ng-click="runCtrl.stopCurTask()" role="button" class="btn btn-default">
-                    <span class="glyphicon glyphicon-ban-circle"></span> Stop
-                  </a>
               </div>
+            </div> 
+          </div>
+          <!-- Task Run Controls -->
+          <div class="jumbotron task-run">
+            <div align="right" ng-controller='TaskRunController as runCtrl'>
+                <a ng-show="runCtrl.currentTaskSelected() && !runCtrl.isRunning()" ng-click="runCtrl.runCurTask()" role="button" class="btn btn-default">
+                  <span class="glyphicon glyphicon-hourglass"></span> Start
+                </a>
+                <a ng-show="runCtrl.currentTaskSelected() && runCtrl.isRunning()" ng-click="runCtrl.stopCurTask()" role="button" class="btn btn-default">
+                  <span class="glyphicon glyphicon-ban-circle"></span> Stop
+                </a>
             </div>
           </div>
-          
         </div>
       </div>
+    </div>
+
   </body>
 </html>

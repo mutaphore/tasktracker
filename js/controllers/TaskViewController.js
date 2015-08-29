@@ -9,5 +9,9 @@ taskTrackerApp.controller("TaskViewController", ["$scope", "taskListManager",
       var task = taskListManager.curTask;
       return task.taskTimeLeft / task.taskDuration * 100;
     };
+
+    this.isRunning = function() {
+      return angular.isDefined(taskListManager.curTask.taskInterval);
+    }
 	}
 ]);
