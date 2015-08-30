@@ -1,13 +1,16 @@
 taskTrackerApp.controller("TaskInputController", ["$scope", "taskListManager", 
 	function($scope, taskListManager) {
 
-		$scope.taskName = "My task";
-		$scope.taskDurationSec = 10;
-		$scope.taskDurationMin = 0;
+		$scope.taskName = "My task ";
+		// $scope.taskDurationSec = 10;
+		// $scope.taskDurationMin = 0;
 
 		$scope.addTask = function() {
-			var seconds = $scope.taskDurationMin * 60 + $scope.taskDurationSec;	
-			taskListManager.addTask($scope.taskName, seconds);
+      if ($scope.taskNameForm.$valid && $scope.taskDurationForm.$valid) {
+        console.log($scope.taskDurationSec);
+  			var sec = ($scope.taskDurationMin || 0) * 60 + ($scope.taskDurationSec || 0);
+  			taskListManager.addTask($scope.taskName, sec);
+      }
 		};
 
     $scope.clearTasks = function() {

@@ -1,21 +1,22 @@
 taskTrackerApp.factory("taskListManager", ["$interval", function($interval) {
-  var idCounter = 0;
   var stop;
   var manager = {
     taskList: [],
-    curTask: {}
+    curTask: {},
+    idCounter: 0
   }
 
   manager.addTask = function(taskName, taskDuration) {
     var newTask = {
-      taskId: idCounter,
+      taskId: manager.idCounter,
       taskName: taskName,
       taskDuration: taskDuration,
       taskTimeLeft: taskDuration,
       taskInterval: undefined
     };
     manager.taskList.push(newTask);
-    idCounter++;
+    manager.idCounter++;
+    console.log(newTask);
   };
 
   manager.removeTask = function(taskId) {

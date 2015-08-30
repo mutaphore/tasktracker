@@ -1,1 +1,1 @@
-var taskTrackerApp = angular.module("taskTrackerApp", [])
+var taskTrackerApp = angular.module("taskTrackerApp", []);

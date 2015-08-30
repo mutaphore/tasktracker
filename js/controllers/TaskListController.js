@@ -18,5 +18,13 @@ taskTrackerApp.controller("TaskListController", ["$scope", "taskListManager",
     $scope.isSelected = function(id) {
       return taskListManager.curTask.taskId === id;
     };
+
+    $scope.getPercentDone = function(task) {
+      return task.taskTimeLeft / task.taskDuration * 100;
+    };
+
+    $scope.isRunning = function(task) {
+      return angular.isDefined(task.taskInterval);
+    }
   }
 ]);
