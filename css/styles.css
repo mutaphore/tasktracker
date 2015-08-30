@@ -10,7 +10,7 @@ input {
 }
 
 table {
-  height: 81.5%; 
+  height: 100%; 
   margin-bottom: 0px !important;
   table-layout: fixed;
 }
@@ -27,12 +27,23 @@ td {
   vertical-align: middle !important;
 }
 
-tbody {
+tbody.top-body {
   overflow-y: auto;
-  height: 81.5%;
+  height: 93%;
   width: 100%;
   position: absolute;
-  border-bottom: 2px solid #333;
+}
+
+tbody.bot-body {
+  height: 7%;
+  width: 100%;
+  text-align: left;
+  border-color: white !important;
+}
+
+.right-menu {
+  margin: 0 !important;
+  padding: 0;
 }
 
 .progress {
@@ -87,10 +98,6 @@ tbody {
 .form-group {
   margin-bottom: 0px;
   padding: 0;
-}
-
-.form-control {
-  border-right: 0px;
 }
 
 .jumbotron.task-view{

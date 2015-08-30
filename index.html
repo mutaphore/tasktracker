@@ -81,25 +81,62 @@
         <div class="col-md-4">
           <!-- Task List -->
           <table class="table table-hover" ng-controller='TaskListController as listCtrl'>
-            <tr ng-repeat="task in tasks" ng-click="selectTask(task.taskId)" ng-class="{success: isSelected(task.taskId)}">
-              <td width="50%">{{ task.taskName }}</td>
-              <td width="45%">
-                <div class="progress">
-                  <div class="progress-bar" ng-class="{'progress-bar-striped active': isRunning(task)}" role="progressbar" 
-                    aria-valuenow="{{ getPercentDone(task) }}" 
-                    aria-valuemin="0" aria-valuemax="100" style="width: {{ getPercentDone(task) }}%;">
+            <tbody class="top-body">
+              <tr class="row" ng-repeat="task in tasks" ng-click="selectTask(task.taskId)" ng-class="{success: isSelected(task.taskId)}">
+                <td width="50%">{{ task.taskName }}</td>
+                <td width="45%">
+                  <div class="progress">
+                    <div class="progress-bar" ng-class="{'progress-bar-striped active': isRunning(task)}" role="progressbar" 
+                      aria-valuenow="{{ getPercentDone(task) }}" 
+                      aria-valuemin="0" aria-valuemax="100" style="width: {{ getPercentDone(task) }}%;">
+                    </div>
                   </div>
-                </div>
-              </td>
-              <td width="5%" align="right">
-                <a role="button" href="#">
-                  <span ng-click="removeTask(task.taskId)" class="glyphicon glyphicon-remove" style="color: red;" aria-hidden="true"></span>
-                </a>
-              </td>
-            </tr>
+                </td>
+                <td width="5%">
+                  <a role="button" href="#">
+                    <span ng-click="removeTask(task.taskId)" class="glyphicon glyphicon-remove" style="color: red;" aria-hidden="true"></span>
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+            <!-- Bottom buttons -->
+            <tbody class="bot-body">
+              <tr>
+                <td style="padding: 0; cursor: default; background-color: white;">
+                  <div ng-controller='TaskInputController'>
+                    <div class="btn-group dropup col-md-6" role="group" aria-label="..." style="padding: 0;">
+                      <button type="button" class="btn btn-default dropdown-toggle no-rounded" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="glyphicon glyphicon-plus"></span>
+                      </button>
+                      <ul class="dropdown-menu right-menu no-rounded">
+                        <li>
+                          <form name="taskNameForm" novalidate>
+                            <div class="form-group">
+                              <div class="input-group col-md-12">
+                                <input type="text" class="form-control" maxlength="40" placeholder="Task name" ng-minlength="1" ng-model="taskName" required><br>
+                              </div>
+                            </div>
+                          </form>
+                          <form name="taskDurationForm" novalidate>
+                            <div class="input-group">
+                              <input type="number" min="0" class="form-control" placeholder="Minutes" ng-model="taskDurationMin">
+                              <input type="number" min="0" class="form-control" placeholder="Seconds" ng-model="taskDurationSec">
+                              <div class="btn-group btn-group-justified">
+                                <a ng-disabled="taskDurationForm.$invalid || taskNameForm.$invalid" ng-click="addTask()" role="button" class="btn btn-default no-rounded">Add</a>
+                              </div>
+                            </div>
+                          </form>
+                        </li>
+                      </ul> 
+                      <a ng-click="clearTasks()" role="button" class="btn btn-default no-rounded">Clear</a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
           </table>
           <!-- Task Input -->
-          <div ng-controller='TaskInputController'>
+          <!-- <div ng-controller='TaskInputController'>
             <form name="taskNameForm" novalidate>
               <div class="form-group">
                 <div class="input-group col-md-12">
@@ -109,7 +146,6 @@
             </form>
             <form name="taskDurationForm" novalidate>
               <div class="input-group">
-                <!-- <span class="input-group-addon" id="basic-addon1">Time</span> -->
                 <input type="number" min="0" class="form-control" placeholder="Minutes" ng-model="taskDurationMin">
                 <input type="number" min="0" class="form-control" placeholder="Seconds" ng-model="taskDurationSec">
                 <div class="btn-group btn-group-justified">
@@ -118,7 +154,7 @@
                 </div>
               </div>
             </form>
-          </div>
+          </div> -->
         </div>
         <!-- Task View -->
         <div class="col-md-8">
